@@ -1,6 +1,6 @@
 import Node from "./linkedListNode.js";
 
-class LinkedList {
+export default class LinkedList {
     constructor() {
          this.head = null;
     }
