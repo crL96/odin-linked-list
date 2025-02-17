@@ -1,4 +1,9 @@
-import Node from "./linkedListNode.js";
+class Node {
+    constructor(value = null, nextNode = null) {
+        this.value = value;
+        this.nextNode = nextNode;
+    }
+}
 
 export default class LinkedList {
     constructor() {
@@ -8,6 +13,7 @@ export default class LinkedList {
     append(value) {
         if (this.head == null) {
             this.prepend(value);
+            return;
         }
         let currentNode = this.head;
         while (currentNode.nextNode != null) currentNode = currentNode.nextNode;
@@ -61,6 +67,12 @@ export default class LinkedList {
         currentNode.nextNode = null;
     }
 
+    shift() {
+        if (this.head == null) throw Error("List is empty");
+        let currentNode = this.head;
+        this.head = currentNode.nextNode;
+    }
+
     contains(value) {
         if (this.head == null) throw Error("List is empty");
 
@@ -96,5 +108,21 @@ export default class LinkedList {
         }
         string = string.concat("null");
         return string;
+    }
+
+    removeAt(index) {
+        if (this.head == null) throw Error("List is empty");
+
+        let currentNode = this.head;
+        let lastNode = null;
+        for (let i = 0; i < index; i++) {
+            if (currentNode == null) throw Error("Index is greater than list size");
+            lastNode = currentNode;
+            currentNode = currentNode.nextNode;
+        }
+        if (lastNode == null) this.shift();
+        else {
+            lastNode.nextNode = currentNode.nextNode;
+        }
     }
 }
